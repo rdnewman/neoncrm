@@ -12,6 +12,7 @@ module Neon
         begin
           raise ArgumentError.new 'Must set NEON_API_KEY environment variable' unless NEON_API_KEY
           raise ArgumentError.new 'Must set NEON_ORG_ID environment variable' unless NEON_ORG_ID
+
           url = URI.parse("#{base_url}/common/login?login.apiKey=#{NEON_API_KEY}&login.orgid=#{NEON_ORG_ID}")
           Rails.logger.info "[Neon::Crm] session key requested: \"#{filter_url(url)}\"" if defined? Rails && defined? Rails.logger
           http = Net::HTTP.new(url.host, url.port)

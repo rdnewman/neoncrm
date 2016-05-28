@@ -20,19 +20,9 @@ module Neon
         return {} unless raw_hash[:searchResults] && raw_hash[:searchResults][:nameValuePairs]
         result = {}
         result[:results] = raw_hash[:searchResults][:nameValuePairs].map do |raw_record|
-          record = {}
-          raw_record[:nameValuePair].each do |pair|
-            pair_value = pair[:value]
-# to make generic as a gem, need to defer this to entity class processing
-            pair_name = pair[:name].downcase.gsub(/ /, '_')
-            if pair_name[0..4] == 'email'
-              record[:email] ||= []
-              record[:email][pair_name[6].to_i - 1] = pair_value
-            else
-              record[pair_name.to_sym] = pair_value
-            end
+          raw_record[:nameValuePair].reduce({}) do |hsh, pair|
+            hsh[pair[:name].downcase.gsub(/ /, '_').to_sym] = pair[:value]
           end
-          record
         end
         result
       end

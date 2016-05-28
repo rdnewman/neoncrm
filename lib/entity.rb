@@ -30,11 +30,15 @@ class Neon::Entity
       end
       distilled_hash
     end
-  end
 
-protected
-  def search_options
-    raise StandardError.new "A concrete class must be implemented for this abstract class."
+  protected
+    def search_options
+      raise NotImplementedError.new "A concrete class must implement a \"search_options\" method for this abstract class."
+    end
+
+    def output_fields
+      raise NotImplementedError.new "A concrete class must implement an \"output_fields\" method for this abstract class."
+    end
   end
 
 end

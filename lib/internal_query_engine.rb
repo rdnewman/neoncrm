@@ -6,7 +6,7 @@ module Neon
 
     def api_request(operation, params = nil)
       url = self.send(:url, operation, params)
-      Rails.logger.info "[Neon::Query] API request: \"#{url}\""
+      Rails.logger.info "[Neon::Query] API request: \"#{url}\"" if defined? Rails && defined? Rails.logger
       http = Net::HTTP.new(url.host, url.port)
       http.use_ssl = true
       http.request(Net::HTTP::Get.new(url.request_uri))

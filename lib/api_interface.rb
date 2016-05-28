@@ -20,7 +20,7 @@ module Neon
 
       result = response[:operationResult]
       unless result == "SUCCESS"
-        Rails.logger.error "API request to Neon FAILED!  #{response}"
+        Rails.logger.error "API request to Neon FAILED!  #{response}" if defined? Rails && defined? Rails.logger
       end
 
       Neon::Distiller.distill(response)
