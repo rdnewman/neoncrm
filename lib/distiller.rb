@@ -22,6 +22,7 @@ module Neon
         result[:results] = raw_hash[:searchResults][:nameValuePairs].map do |raw_record|
           raw_record[:nameValuePair].reduce({}) do |hsh, pair|
             hsh[pair[:name].downcase.gsub(/ /, '_').to_sym] = pair[:value]
+            hsh
           end
         end
         result

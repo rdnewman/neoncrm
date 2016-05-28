@@ -8,5 +8,9 @@ class Neon::Account < Neon::Entity
       options[:output_fields] = output_fields
       options
     end
+
+    def output_fields
+      [:first_name, :last_name]
+    end
   end
 end

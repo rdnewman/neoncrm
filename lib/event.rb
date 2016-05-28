@@ -8,5 +8,9 @@ class Neon::Event < Neon::Entity
       options[:output_fields] = output_fields
       options
     end
+
+    def output_fields
+      [:event_name, :event_start_date, :event_end_date]
+    end
   end
 end
