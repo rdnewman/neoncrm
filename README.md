@@ -61,11 +61,12 @@ The provided `Neon::` classes can infer the fields to read from the provided fie
 
 Please read the details below to make use of these classes.
 
-#### Simple customization
 There are three _class_ methods that may be overridden in your subclasses to tailor how fields are read from Neon:
 * `field_map`: a Hash of Symbol keys to String values, where the Strings correspond to the field names provided by Neon for your site.
 * `output_fields`: an Array of Symbols referring to the fields which are to be returned from Neon
 * `search_options`: an advanced customization that can tailor the basic invocation of `search`
+
+#### Simple customization
 
 Often you'll override `field_map` and `output_fields`, but `search_options` will generally not require any customization.
 
@@ -84,7 +85,7 @@ end
 
 Note that convenience aliases can be introduced, as for `email` and `email1` in the above example.   For `:account_id` of an Account, Neon normally uses "Account ID" as its field name, so we must alias `:account_id` to avoid the default inference of "Account Id".
 
-**Example** of `field_map` for `MyAccountClass` (from above):
+**Example** of `output_fields` for `MyAccountClass` (from above):
 
 ```ruby
 def self.output_fields
