@@ -39,6 +39,10 @@ class Neon::Entity
     def output_fields
       raise NotImplementedError.new "A concrete class must implement an \"output_fields\" method for this abstract class."
     end
+
+    def field_map
+      nil
+    end
   end
 
 end

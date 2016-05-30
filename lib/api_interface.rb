@@ -1,12 +1,12 @@
 module Neon
   class ApiInterface
     def initialize(options)
-      @fields = options[:fields] || {}
+      @field_map = options[:field_map] || {}
       @operation = options[:operation] || ''
       @output_fields = options[:output_fields] || []
       @response_key = options[:response_key] || Symbol.new
 
-      @query = Neon::InternalQueryEngine.new(@fields)
+      @query = Neon::InternalQueryEngine.new(@field_map)
     end
 
     def search(key, operator, value, pagination_options)

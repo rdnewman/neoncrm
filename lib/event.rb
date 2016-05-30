@@ -4,6 +4,7 @@ class Neon::Event < Neon::Entity
     def search_options
       options = {}
       options[:operation] = '/event/listEvents'
+      options[:field_map] = field_map
       options[:response_key] = :listEvents
       options[:output_fields] = output_fields
       options
