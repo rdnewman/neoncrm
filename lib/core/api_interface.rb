@@ -28,4 +28,4 @@ module Neon
   end
 end
 
-require 'entity'
+require 'core/entity'

@@ -36,6 +36,6 @@ module Neon
   end
 end
 
-require 'internal_query_engine'
-require 'distiller'
-require 'api_interface'
+require 'core/internal_query_engine'
+require 'core/distiller'
+require 'core/api_interface'
