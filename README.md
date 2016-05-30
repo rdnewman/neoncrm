@@ -20,8 +20,8 @@ To build the gem:  `gem build neoncrm.gemspec`
   * [simple customization](*simple-customization)
   * [advanced customization](*advanced-customization)
 * [Provided classes](#provided-classes)
-  * [Neon::Account](*neon-account)
-  * [Neon::Event](*neon-event)
+  * [Neon::Account](*neonaccount)
+  * [Neon::Event](*neonevent)
 * [Provided logical operators](#provided-logical-operators)
 
 
@@ -36,7 +36,7 @@ To use the gem, two environment variables must be set:
 
 As of this writing, two classes are especially relevant to the code using this gem:
 * `Neon::Account`:  retrieves account information
-* `Neon::Event`: retrieves event information and supports this Neon API request: https://developer.neoncrm.com/api/events/list-events/
+* `Neon::Event`: retrieves event information
 
 ## Use
 In general, you write your application classes as subclasses to the ones provided, such as
