@@ -20,8 +20,8 @@ To build the gem:  `gem build neoncrm.gemspec`
   * [simple customization](*simple-customization)
   * [advanced customization](*advanced-customization)
 * [Provided classes](#provided-classes)
-  * [Neon::Account](*neonaccount)
-  * [Neon::Event](*neonevent)
+  * [Neon::Account](#neonaccount)
+  * [Neon::Event](#neonevent)
 * [Provided logical operators](#provided-logical-operators)
 
 
