@@ -198,7 +198,7 @@ end
 ```
 
 #### `initialize`
-Any class which has `Neon::Entity` as an ancestor, such as the [provided classes](#provided-classes), will yield to block if given for its `initialize` instance method.  In this way, post-retrieval processing may be done on the fields retrieved to make it easier to work with.
+Any class which has `Neon::Entity` as an ancestor, such as the [provided classes](#provided-classes), will yield to a block if given for its `initialize` instance method.  In this way, post-retrieval processing may be done on the fields retrieved to make it easier to work with.
 
 Here is a simple example:
 
@@ -269,7 +269,7 @@ end
 # ...now, @neon_content[:emails] is an Array of emails
 ```
 
-Note that any key present in `@neon_content` will be treated as virtual attribute (i.e., getter method) for the object.  In the example above, `.emails` against the object would now return the array of email addresses, but `.email_2` no longer would be available (since the key was deleted).
+Note that any key present in `@neon_content` will be treated as a virtual attribute (i.e., a getter method) for the object.  In the example above, `.emails` called against the object would now return the array of email addresses, but `.email_2` no longer would be available (since the key was deleted).
 
 Alternatively, the code of the block to `super` could be directly performed after the call to `super` instead of supplying it in a block, but this approach may ignore other processing the provided superclass may supply in the future.  
 
