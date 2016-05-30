@@ -14,6 +14,18 @@ limit your rights in distributing, so let me know if that's a problem.
 To build the gem:  `gem build neoncrm.gemspec`
 (As soon as it's ready for more general use, I'll post to RubyGems.org)
 
+**Table of contents**
+* [Installation](#Installation)
+* [Use](#Use)
+  * [simple customization](*simple-customization)
+  * [advanced customization](*advanced-customization)
+* [Provided classes](#provided-classes)
+  * [Neon::Account](*neon-account)
+  * [Neon::Event](*neon-event)
+* [Provided logical operators](#provided-logical-operators)
+
+
+
 ## Installation
 
 Install the gem in the usual way, either with the `gem install` command or via Bundler.
@@ -26,11 +38,14 @@ As of this writing, two classes are especially relevant to the code using this g
 * `Neon::Account`:  retrieves account information
 * `Neon::Event`: retrieves event information and supports this Neon API request: https://developer.neoncrm.com/api/events/list-events/
 
-### Use
+## Use
 In general, you write your application classes as subclasses to the ones provided, such as
 
 ```ruby
 class MyAccountClass < Neon::Account
+  # ...
+  # your code and supported customizations
+  # ...
 end
 ```
 
@@ -71,9 +86,11 @@ Note that convenience aliases can be introduced, as for `email` and `email1` in 
 
 **Example** of `field_map` for `MyAccountClass` (from above):
 
-    def self.output_fields
-      [:account_id, :first_name, :last_name, :email1, :email2, :email3]
-    end
+```ruby
+def self.output_fields
+  [:account_id, :first_name, :last_name, :email1, :email2, :email3]
+end
+```
 
 Each provided `Neon::` class has a default set of `output_fields` already defined.  These are described under "Provided Classes" below.
 
@@ -106,7 +123,7 @@ class Neon::Account < Neon::Entity
 end
 ```
 
-### Provided classes
+## Provided classes
 Each of the provided classes offer minimal defaults so they can work immediately for most sites.
 
 #### Neon::Account
@@ -139,7 +156,7 @@ def self.output_fields
 end
 ```
 
-### Provided logical operators
+## Provided logical operators
 The following are the provided symbols for specifying the operators that Neon expects (note that convenience aliases are offered for readablity).  Please see the Neon API documentation for understanding how Neon interprets these strings.
 
 | Available symbol(s) | Neon string |
