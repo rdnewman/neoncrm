@@ -17,8 +17,8 @@ To build the gem:  `gem build neoncrm.gemspec`
 **Table of contents**
 * [Installation](#Installation)
 * [Use](#Use)
-  * [simple customization](*simple-customization)
-  * [advanced customization](*advanced-customization)
+  * [simple customization](#simple-customization)
+  * [advanced customization](#advanced-customization)
 * [Provided classes](#provided-classes)
   * [Neon::Account](#neonaccount)
   * [Neon::Event](#neonevent)
