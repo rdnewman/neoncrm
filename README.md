@@ -29,14 +29,18 @@ As of this writing, two classes are especially relevant to the code using this g
 ### Use
 In general, you write your application classes as subclasses to the ones provided, such as
 
-    class MyAccountClass < Neon::Account
-    end
+```ruby
+class MyAccountClass < Neon::Account
+end
+```
 
 Once your class is subclassed from the provided Neon class then you retrieve records from your Neon account via `search`, such as
 
-    result = MyAccountClass.search(:account_id, :equals, 5)
+```ruby
+result = MyAccountClass.search(:account_id, :equals, 5)
+```
 
-`search` requires three arguments (a field_key, a logical operator, and a search value) and returns a Hash that contains some meta data and an Array of entities that can then be worked with.  For instance, in the above example, `result[:entities]` is an Array of MyAccountClass objects, so `result[:entities].first` is a MyAccountClass object and it's fields are available as attributes of the object.
+`search` requires three arguments: a field_key (e.g., `:account_id`), a logical operator (.e.g, `:equals`), and a search value (e.g., `5`).  `search` returns a Hash that contains some meta data and an Array of entities that can then be worked with.  For instance, in the above example, `result[:entities]` is an Array of `MyAccountClass` objects, so `result[:entities].first` is a `MyAccountClass` object and its fields are available as attributes of the object.
 
 The provided `Neon::` classes can infer the fields to read from the provided field key.  The inference is simply the a conversation of the given symbol to a String where the words are capitalized and underscores replaced with spaces.  For instance, `:account_id` would be inferred by default to `Account Id` and `:first_name` would be inferred by default to `First Name` when the request is made to Neon's server.
 
@@ -52,16 +56,18 @@ Often you'll override `field_map` and `output_fields`, but `search_options` will
 
 **Example** of `field_map` for `MyAccountClass` (from above):
 
-    def self.field_map
-      {account_id: 'Account ID',
-       email: 'Email 1',
-       email1: 'Email 1',
-       email2: 'Email 2',
-       email3: 'Email 3',
-      }
-    end
+```ruby
+def self.field_map
+  {account_id: 'Account ID',
+   email: 'Email 1',
+   email1: 'Email 1',   # refers to same field as `:email`!
+   email2: 'Email 2',
+   email3: 'Email 3',
+  }
+end
+```
 
-Note that convenience aliases can be introduced, as for `email` and `email1` in the above example.   For `:account_id` of an Account, Neon normally uses `Account ID` as it's field, so we must alias `:account_id` to avoid the default inference of `Account Id`.
+Note that convenience aliases can be introduced, as for `email` and `email1` in the above example.   For `:account_id` of an Account, Neon normally uses "Account ID" as its field name, so we must alias `:account_id` to avoid the default inference of "Account Id".
 
 **Example** of `field_map` for `MyAccountClass` (from above):
 
@@ -69,34 +75,36 @@ Note that convenience aliases can be introduced, as for `email` and `email1` in 
       [:account_id, :first_name, :last_name, :email1, :email2, :email3]
     end
 
-Each provided `Neon::` class has a default set of `output_fields` already defined and described below.
+Each provided `Neon::` class has a default set of `output_fields` already defined.  These are described under "Provided Classes" below.
 
 Note that these symbols must either be explicitly specified in the `field_map` or they will be inferred from the symbol itself.
 
 #### Advanced customization
 As of this writing, this gem only supports the read-only portion of the Neon API.  However, additional entities for reading can be created beyond those of the provided classes (below). This is accomplished by writing a new class that inherits from Neon::Entity and implements both the `search_options` and `output_fields` methods.  For instance, this is the current implementation of the provided Neon::Account class:
 
-    class Neon::Account < Neon::Entity
+```ruby
+class Neon::Account < Neon::Entity
 
-      class << self
-        def search_options
-          options = {}
-          options[:operation] = '/account/listAccounts'    # as specified by Neon in its documentation
-          options[:response_key] = :listAccountsResponse   # corresponds to the JSON key used by Neon in its results (see Neon documentation)
-          options[:output_fields] = output_fields          # uses the class method "output_fields" below to get its Array
-          options[:field_map] = field_map                  # uses the class method "field_map" below to get its Hash
-          options
-        end
-
-        def field_map
-          {account_id: 'Account ID'}
-        end
-
-        def output_fields
-          [:account_id, :first_name, :last_name]
-        end
-      end
+  class << self
+    def search_options
+      options = {}
+      options[:operation] = '/account/listAccounts'    # as specified by Neon in its documentation
+      options[:response_key] = :listAccountsResponse   # corresponds to the JSON key used by Neon in its results (see Neon documentation)
+      options[:output_fields] = output_fields          # uses the class method "output_fields" below to get its Array
+      options[:field_map] = field_map                  # uses the class method "field_map" below to get its Hash
+      options
     end
+
+    def field_map
+      {account_id: 'Account ID'}
+    end
+
+    def output_fields
+      [:account_id, :first_name, :last_name]
+    end
+  end
+end
+```
 
 ### Provided classes
 Each of the provided classes offer minimal defaults so they can work immediately for most sites.
@@ -106,26 +114,30 @@ This superclass retrieves account information and supports this Neon API request
 
 **Defaults**:
 
-    def self.field_map
-      {account_id: 'Account ID'}
-    end
+```ruby
+def self.field_map
+  {account_id: 'Account ID'}
+end
 
-    def self.output_fields
-      [:account_id, :first_name, :last_name]
-    end
+def self.output_fields
+  [:account_id, :first_name, :last_name]
+end
+```
 
 #### Neon::Event
 This superclass retrieves event information and supports this Neon API request: <a href='https://developer.neoncrm.com/api/events/list-events/', target='_blank'>https://developer.neoncrm.com/api/events/list-events/</a>
 
 **Defaults**:
 
-    def self.field_map
-      nil    # nil causes all Neon field names to be inferred from the symbols used
-    end
+```ruby
+def self.field_map
+  nil    # nil causes all Neon field names to be inferred from the symbols used
+end
 
-    def self.output_fields
-      [:event_name, :event_start_date, :event_end_date]
-    end
+def self.output_fields
+  [:event_name, :event_start_date, :event_end_date]
+end
+```
 
 ### Provided logical operators
 The following are the provided symbols for specifying the operators that Neon expects (note that convenience aliases are offered for readablity).  Please see the Neon API documentation for understanding how Neon interprets these strings.
