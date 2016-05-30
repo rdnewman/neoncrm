@@ -1,7 +1,10 @@
 # neoncrm
 
-To work with Neon CRM API: https://developer.neoncrm.com/api/
+Ruby gem to work with Neon CRM API: https://developer.neoncrm.com/api/.  
 
+Neon and its API are copyrighted by Z2 Systems, Inc. and this open source gem is only provided for the convenience of their authorized users.
+
+----
 
 THIS GEM IS STILL BEING DEVELOPED and may have severe issues.  As of this writing,
 this gem only handles reading information from the API and so should not be able
@@ -13,6 +16,8 @@ limit your rights in distributing, so let me know if that's a problem.
 
 To build the gem:  `gem build neoncrm.gemspec`
 (As soon as it's ready for more general use, I'll post to RubyGems.org)
+
+----
 
 **Table of contents**
 * [Installation](#installation)
