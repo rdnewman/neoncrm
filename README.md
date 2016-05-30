@@ -161,7 +161,7 @@ end
 The following are the provided symbols for specifying the operators that Neon expects (note that convenience aliases are offered for readablity).  Please see the Neon API documentation for understanding how Neon interprets these strings.
 
 | Available symbol(s) | Neon string |
-|---------------------|:------------|
+|:---------------------|:-------------|
 | `:equal`, `:equals` | "EQUAL" |
 | `:not_equal`, `:not_equals` | "NOT_EQUAL" |
 | `:blank`, `:empty` | "BLANK" |
