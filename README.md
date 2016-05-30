@@ -98,7 +98,7 @@ Each provided `Neon::` class has a default set of `output_fields` already define
 Note that these symbols must either be explicitly specified in the `field_map` or they will be inferred from the symbol itself.
 
 #### Advanced customization
-As of this writing, this gem only supports the read-only portion of the Neon API.  However, additional entities for reading can be created beyond those of the provided classes (below). This is accomplished by writing a new class that inherits from Neon::Entity and implements both the `search_options` and `output_fields` methods.  For instance, this is the current implementation of the provided Neon::Account class:
+As of this writing, this gem only supports the read-only portion of the Neon API.  However, additional entities for reading can be created beyond those of the provided classes (below). This is accomplished by writing a new class that inherits from `Neon::Entity` and implements both the `search_options` and `output_fields` methods.  For instance, this is the current implementation of the provided Neon::Account class:
 
 ```ruby
 class Neon::Account < Neon::Entity
