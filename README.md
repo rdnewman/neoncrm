@@ -79,7 +79,7 @@ See the [provided classes](#provided-classes) for more details about the default
 
 Because of the limits on `page_size` that Neon enforces, multiple `search` invocations may be required.
 
-Beware that retrievals are done in JSON, so all returned values are Strings.  See (advanced use)[#advanced-use] below for a way to convert incoming values to, say, numeric or date formats.
+Beware that retrievals are done in JSON, so all returned values are Strings.  See [advanced use](#advanced-use) below for a way to convert incoming values to, say, numeric or date formats.
 
 #### `field_map` and `output_fields`
 Two _class_ methods are often overridden in your subclasses to tailor how fields are read from Neon:
