@@ -46,6 +46,3 @@ class Neon::Entity
   end
 
 end
-
-require 'entities/account'
-require 'entities/event'

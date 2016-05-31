@@ -43,6 +43,7 @@ To use the gem, two environment variables must be set:
 As of this writing, two classes are especially relevant to the code using this gem (see [Provided classes](#provided-classes) for more detail):
 * `Neon::Account`:  retrieves account information
 * `Neon::Event`: retrieves event information
+* `Neon::Member`: retrieves membership information
 
 ## Basic use
 In general, you write your application classes as subclasses to the ones provided, such as
@@ -58,7 +59,7 @@ end
 Once your class is subclassed from the provided Neon class then you retrieve records from your Neon account via `search`, such as
 
 ```ruby
-result = MyAccountClass.search(:account_id, :equals, 5)
+result = MyAccountClass.search(:account_id, :equals, '5')
 ```
 
 #### `search`
@@ -75,7 +76,9 @@ See the [provided classes](#provided-classes) for more details about the default
 * `sort_by`: the symbol for the field (default: first field in `output_fields`) the records are to be sorted by (across all pages)
 * `direction`: currently "ASC" (default) and "DESC" are supported.
 
-Because of the limits on `page_size` that Neon enforces, multiple `search` invocations may be required
+Because of the limits on `page_size` that Neon enforces, multiple `search` invocations may be required.
+
+Beware that retrievals are done in JSON, so all returned values are Strings.  See (advanced use)[#advanced-use] below for a way to convert incoming values to, say, numeric or date formats.
 
 #### `field_map` and `output_fields`
 Two _class_ methods are often overridden in your subclasses to tailor how fields are read from Neon:
@@ -141,6 +144,22 @@ def self.output_fields
   [:event_name, :event_start_date, :event_end_date]
 end
 ```
+
+#### Neon::Membership
+This superclass retrieves membership information and supports this Neon API request: <a href='https://developer.neoncrm.com/api/memberships/list-members/', target='_blank'>https://developer.neoncrm.com/api/memberships/list-members/</a>
+
+**Defaults**:
+
+```ruby
+def self.field_map
+  {account_id: 'Account ID'}
+end
+
+def self.output_fields
+  [:account_id, :membership_name, :membership_cost]
+end
+```
+
 
 ## Provided logical operators
 The following are the provided symbols for specifying the operators that Neon expects (note that convenience aliases are offered for readablity).  Please see the Neon API documentation for understanding how Neon interprets these strings.
@@ -267,6 +286,18 @@ def initialize(distilled_hash = {})
   end
 end
 # ...now, @neon_content[:emails] is an Array of emails
+```
+
+Another use might be to convert incoming data away from strings:
+
+```ruby
+# if self.output_fields was [:account_id, :first_name, :last_name, :email1, :email2, :email3]...
+def initialize(distilled_hash = {})
+  super do
+    @neon_content[:account_id] = @neon_content[:account_id].to_i
+  end
+end
+# ...now, @neon_content[:account_id] is numeric
 ```
 
 Note that any key present in `@neon_content` will be treated as a virtual attribute (i.e., a getter method) for the object.  In the example above, `.emails` called against the object would now return the array of email addresses, but `.email_2` no longer would be available (since the key was deleted).
